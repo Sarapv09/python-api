@@ -25,6 +25,13 @@ def get_day(day_id):
         abort(404)
     return jsonify({"day": day[0]})
 
+@app.route("/<int:day_id>", methods=["DELETE"])
+def delete_day(day_id):
+    day = [day for day in days if day["id"] == day_id]
+    if len(day) == 0:
+        abort(404)
+    days.remove(day[0])
+    return jsonify({"result": True})
 
 @app.route("/", methods=["POST"])
 def post_days():
