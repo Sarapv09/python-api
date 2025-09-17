@@ -33,6 +33,15 @@ def delete_day(day_id):
     days.remove(day[0])
     return jsonify({"result": True})
 
+@app.route("/", methods=["UPDATE"])
+def update_days(day_id, name):
+    day = [day for day in days if day["id"] == day_id]
+    if len(day) == 0:
+        abort(404)
+    day[0]['name'] = name
+    return jsonify({"day": day[0]})
+    
+
 @app.route("/", methods=["POST"])
 def post_days():
     return jsonify({"success": True}), 201
